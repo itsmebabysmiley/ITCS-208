@@ -1,0 +1,37 @@
+
+
+
+DONE!!!
+------------------------
+
+
+validplayer make sure u test it!! tobtab good luck u can do it!
+------------------------
+findtarget
+    check lowesthp 
+findtargetbylowesthp
+    check front back something like that I don't understand.
+
+++++NULL++++
+    be care ful null exception.
+
+advance case 
+null in attack r2 player A 5
+
+------------------------------
+date Mar 23,2020
+
+almost finish.
+
+null in r 39.
+status in sleeping when e'cherry use ability.
+
+not test simple case yet.
+
+-----
+r 26 healer 
+
+
+
+
+
