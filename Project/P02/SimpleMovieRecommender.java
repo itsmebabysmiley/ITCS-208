@@ -91,7 +91,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
                 e.printStackTrace();
             }
         }
-
+        
         return temp;
     }
 
@@ -130,16 +130,20 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
             e.printStackTrace();
         }
         int pos = 0;
-        for (User u : users.values()) {                       //add userid with index start with 0 - user.size()
-            user_map.put(pos, u.uid);pos++;                   //to easy wirte for file output.
+        for (User u : users.values()) {                                //add userid with index start with 0 - user.size()
+            user_map.put(pos, u.uid);pos++;                            //to easy wirte for file output.
         }
-        // store user id in map and append in file.
-        List<Integer> temp_movieID = new ArrayList<>(movies.keySet()); // add movie id in list and sort it before store
-        Collections.sort(temp_movieID);                                // in movieid map.
-                                                                       
-        for (int i = 0; i < movies.size(); i++) {                      //add movieid with index start with 0 - movies.size()
-            movie_map.put(i, temp_movieID.get(i));                     //to easy wirte for file output.
+        List<Integer> temp = new ArrayList<>();
+        for (Movie m : movies.values()){
+            temp.add(m.mid);
         }
+        Collections.sort(temp);
+        pos = 0;
+
+        for (int i = 0 ; i < temp.size() ; i++) {                              //add movieid with index start with 0 - movies.size()
+            movie_map.put(i,temp.get(i));                         //to easy wirte for file output.
+        }
+
         // store movieid in map and append in file.
         data.append("@NUM_USERS " + users.size() + "\n");
         data.append("@USER_MAP " + user_map + "\n");
@@ -264,8 +268,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
                     }
                 }
             }
-
-            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -289,30 +291,38 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
             double sumofU = 0.0 , sumofD = 0.0;
             for(int y=0;y<ratematrix.length;y++) {
                 if(y == userPos) continue;
-                if(ratematrix[y][movPos] > 0.0) {
+                if(ratematrix[y][movPos] != 0.0) {
                         double s = simmatrix[y][userPos];
-                        sumofU += s*(ratematrix[y][movPos] - ratematrix[y][ratematrix[y].length-1]);
                         sumofD += Math.abs(s);
+                        sumofU += s * (ratematrix[y][movPos] - ratematrix[y][ratematrix[y].length-1]);
                 }
             } 
 		if(sumofU == 0.0 || sumofD == 0.0) return ratematrix[userPos][ratematrix[userPos].length-1];
 		double p = ratematrix[userPos][ratematrix[userPos].length-1] + (sumofU/sumofD);
-		if(p > 5.0) p = 5.0;
-		else if(p < 0.0) p = 0.0;
         
+        if(p > 5.0) p = 5.0;
+		else if(p < 0.0) p = 0.0;
         return p;
+
     }
 
     @Override
     public List<MovieItem> recommend(User u, int fromYear, int toYear, int K) {
         // TODO Auto-generated method stub
         List<MovieItem> list = new ArrayList<MovieItem>();
-            for (int i : mapOfMovie.values()) {
-                int movieYear = movies.get(i).year;
-                if(movieYear >= fromYear && movieYear <= toYear){
-                    double predictRate = predict(movies.get(i), u);
-                    MovieItem m = new MovieItem(movies.get(i),predictRate);
-                    list.add(m);
+        /**this one I use mapOfMovie, it's wrong so I chagne to use real movies map */
+            // for (int i : mapOfMovie.values()) {
+            //     int movieYear = movies.get(i).year;
+            //     if(movieYear >= fromYear && movieYear <= toYear){
+            //         double predictRate = predict(movies.get(i), u);
+            //         MovieItem m = new MovieItem(movies.get(i),predictRate);
+            //         list.add(m);
+            //     }
+            // }
+            for (Movie i : movies.values()) {
+                if(i.year>=fromYear && i.year<=toYear){
+                    MovieItem item = new MovieItem(i,predict(i,u));
+                    list.add(item);
                 }
             }
             Collections.sort(list);                                     //sort by score.
@@ -334,8 +344,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
         User v = users.get(userSecond);
 
         double similarity;
-        TreeSet<Integer> intersectRateMovies = new TreeSet<>();        //intersection to check if user u and user v are rate same movies then store in TreeSet.
-        intersectRateMovies.addAll(Sets.intersection(u.ratings.keySet(), v.ratings.keySet()));
+        TreeSet<Integer> intersectRateMovies = new TreeSet<>(Sets.intersection(u.ratings.keySet(), v.ratings.keySet()));        //intersection to check if user u and user v are rate same movies then store in TreeSet.
+        //intersectRateMovies.addAll(Sets.intersection(u.ratings.keySet(), v.ratings.keySet()));
 
         // Find the sumOfUser
         double sumOfAllUser = 0;
@@ -363,3 +373,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
     }
 
 }
+
+
+
