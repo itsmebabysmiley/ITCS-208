@@ -13,7 +13,6 @@ public class ToH {
         tower[1].push(3); //0
         tower[1].push(2); //1
         tower[1].push(1); //2
-        
         Lop_BaB_Digital(3, 1, 2, 3); //number of stack,s1,s2,s3
 
     }
@@ -29,4 +28,25 @@ public class ToH {
     }
 
 
+    public static void display() {
+        System.out.println("  1  |  2  |  3");
+        System.out.println("---------------");
+        for (int i = 3 - 1; i >= 0; i--) {
+            String d1 = " ", d2 = " ", d3 = " ";
+            try {
+                d1 = String.valueOf(tower[1].get(i));
+            } catch (Exception e) {
+            }
+            try {
+                d2 = String.valueOf(tower[2].get(i));
+            } catch (Exception e) {
+            }
+            try {
+                d3 = String.valueOf(tower[3].get(i));
+            } catch (Exception e) {
+            }
+            System.out.println("  " + d1 + "  |  " + d2 + "  |  " + d3);
+        }
+        System.out.println("\n");
     }
+}
