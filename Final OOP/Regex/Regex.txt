@@ -1,0 +1,40 @@
+Regex
+
+a 		->	ต้องเป็น a
+ab		->	ต้องเป็น ab
+A|b		->	a หรือ b
+(ab)|(cd)	->	ab หรือ 	cd
+[ab]		->	a หรือ b (a|b)
+[a-z]		->	a ถึง z
+[^a-z]		->	ต้องไม่ใช่ a-z
+^a		->	ต้องขึ้นต้นด้วย a
+$a		->	ต้องลงท้ายด้;ย a
+a?		->	มี a ไม่เกิน 1 ตัว หรือ ไม่มีเลย
+a*		->	มี a กี่ตัวก็ได้
+a+		->	ต้องมี a อย่างน้อย 1 ตัว
+a{n}		->	ต้องมี a n ตัว เช่น a{3} ต้องมี a สามตัว
+a{n,}		->	ต้องมี a n ตัวขึ้นไป
+A{n,m}		->	มี a จำนวน n ถึง m ตัว เช่น a{1,2} มี a 1 ถึง 2 ตัว
+.		->	ตัวไรก้ได้
+\\w		->	[a-zA-Z0-9]
+\\W		->	[^a-zA-Z0-9]
+\\d		->	0-9
+\\D		->	^0-9
+\\s		->	ข่องว่าง
+----------------------บอกไว้เฉย-----------------------------
+|    \\b	->	word boundary			  |
+|    \\B	->	non-word boundary		  |
+|    ^Sting$	->	คำๆนั้น				  |
+|    ?:		->	non-group capture		  |
+-----------------------------------------------------------
+แถมม
+มันอยู่ใน hackrank
+
+"\\b(\\w+)(?:\\W+\\1\\b)+"
+
+\w ----> A word character: [a-zA-Z_0-9] <br/>
+\W ----> A non-word character: [^\w]<br/>
+\b ----> A word boundary  <br/>
+\1 ----> Matches whatever was matched in the 1st group of parentheses, which in this case is the (\w+)  <br/>
++ ----> Match whatever it's placed after 1 or more times
+The \b boundaries are needed for special cases such as "Bob and Andy" (we don't want to match "and" twice). Another special case is "My thesis is great" (we don't want to match "is" twice).

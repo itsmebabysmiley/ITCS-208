@@ -1,0 +1,8 @@
+Try{
+
+}
+catch(Exception e){
+	e.printStackTrace();
+}
+
+จบบ คิดไรไม่ออกกดอันนี้
