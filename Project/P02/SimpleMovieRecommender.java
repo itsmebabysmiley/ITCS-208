@@ -374,5 +374,3 @@ public class SimpleMovieRecommender implements BaseMovieRecommender {
 
 }
 
-
-

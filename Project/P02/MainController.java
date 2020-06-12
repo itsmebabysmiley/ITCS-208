@@ -1,5 +1,5 @@
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -32,19 +32,19 @@ public class MainController {
 				
 				// System.out.println("Training the recommender...");
 				// b.loadData("small/movies.csv","small/users.train.csv");
-				// b.trainModel("small/small.simple1.model");
+				// b.trainModel("small/small.simple.model");
 
 				
-				// System.out.println("Testing the recommender...");
-				// b.loadData("small/movies.csv","small/users.train.csv");
-				// b.loadModel("small/small.simple1.model");
-				// Evaluator ee = new Evaluator(b, "small/users.test.csv");
-				// ee.evaluate(2010, 2015, 20, "small/micro.try.result");
-				// System.out.println(ee.toString());
+				System.out.println("Testing the recommender...");
+				b.loadData("small/movies.csv","small/users.train.csv");
+				b.loadModel("small/small.simple.model");
+				Evaluator ee = new Evaluator(b, "small/users.test.csv");
+				ee.evaluate(2010, 2015, 20, "small/small.simple.result");
+				System.out.println(ee.toString());
 
 				// System.out.println("Recommendation for "+19);
 				// b.loadData("small/movies.csv","small/users.train.csv");
-				// b.loadModel("small/small.simple1.model");
+				// b.loadModel("small/small.aor.model");
 				// List<MovieItem> itemss = b.recommend(b.getAllUsers().get(Integer.parseInt("19")), 2010, 2015, 20);
 				// int coun = 1;
 				// for(MovieItem ite: itemss)
