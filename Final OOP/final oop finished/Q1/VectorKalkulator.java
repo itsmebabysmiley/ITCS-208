@@ -16,8 +16,7 @@ public class VectorKalkulator {
 		double max = v[0];
 		for (double d : v) {
 			if(d > max) max = d;
-			if(d < min)	min = d;
-			
+			if(d < min) min = d;	
 		}
 		int i = 0;
 		double[] ans = new double[v.length];
